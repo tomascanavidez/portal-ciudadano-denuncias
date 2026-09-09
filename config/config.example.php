@@ -3,7 +3,7 @@
 // config.php está excluido de git para no exponer credenciales.
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'portal_ciudadano');
+define('DB_NAME', 'a0190001_port');
 define('DB_USER', 'tu_usuario');
 define('DB_PASS', 'tu_password');
 define('DB_CHARSET', 'utf8mb4');

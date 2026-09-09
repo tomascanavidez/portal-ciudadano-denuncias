@@ -1,10 +1,7 @@
 -- Portal Ciudadano - Esquema de base de datos
--- Ejecutar una vez en el hosting: mysql -u usuario -p < schema.sql
+-- Ejecutar una vez en el hosting: mysql -u usuario -p a0190001_port < schema.sql
 
-CREATE DATABASE IF NOT EXISTS portal_ciudadano
-  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-USE portal_ciudadano;
+USE a0190001_port;
 
 CREATE TABLE IF NOT EXISTS categorias (
   id INT AUTO_INCREMENT PRIMARY KEY,

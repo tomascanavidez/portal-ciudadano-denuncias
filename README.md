@@ -12,17 +12,18 @@ Sitio institucional con módulo de denuncias ciudadanas en PHP vanilla + MySQL.
 
 ## Instalación
 
-1. Crear la base de datos ejecutando `database/schema.sql`:
+1. Crear la base de datos vacía desde el panel del hosting (cPanel u otro) con el nombre que corresponda (por ejemplo `a0190001_port`) y asignarle un usuario con permisos.
+2. Importar las tablas ejecutando `database/schema.sql` (que ya usa ese nombre de base con `USE`):
    ```
    mysql -u usuario -p < database/schema.sql
    ```
-2. Copiar `config/config.example.php` a `config/config.php` y completar con los datos reales del hosting (DB, URL del sitio, remitente de mail).
-3. Crear el usuario administrador:
+3. Copiar `config/config.example.php` a `config/config.php` y completar con los datos reales del hosting (DB, URL del sitio, remitente de mail).
+4. Crear el usuario administrador:
    ```
    php database/crear_admin.php usuario contraseña "Nombre Completo"
    ```
-4. Dar permisos de escritura al usuario del servidor web sobre `uploads/denuncias/`.
-5. Acceder a `admin/login.php` con las credenciales creadas.
+5. Dar permisos de escritura al usuario del servidor web sobre `uploads/denuncias/`.
+6. Acceder a `admin/login.php` con las credenciales creadas.
 
 ## Estructura
 
