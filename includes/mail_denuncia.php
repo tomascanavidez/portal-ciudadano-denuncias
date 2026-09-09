@@ -84,20 +84,25 @@ function enviarMailConfirmacionDenuncia(array $denuncia, string $categoriaNombre
     }
 
     $mensajeError = null;
-    set_error_handler(function (int $errno, string $errstr) use (&$mensajeError): bool {
-        $mensajeError = $errstr;
-        return true;
-    });
+    $puedeCapturarErrores = function_exists('set_error_handler') && function_exists('restore_error_handler');
 
-    $enviado = mail(
+    if ($puedeCapturarErrores) {
+        set_error_handler(function (int $errno, string $errstr) use (&$mensajeError): bool {
+            $mensajeError = $errstr;
+            return true;
+        });
+    }
+
+    $enviado = @mail(
         $denuncia['email'],
         '=?UTF-8?B?' . base64_encode($asunto) . '?=',
         $cuerpoHtml,
-        $headers,
-        '-f' . MAIL_FROM_ADDRESS
+        $headers
     );
 
-    restore_error_handler();
+    if ($puedeCapturarErrores) {
+        restore_error_handler();
+    }
 
     if (!$enviado) {
         error_log('[mail_denuncia] Fallo al enviar a ' . $denuncia['email'] . ': ' . ($mensajeError ?? 'mail() devolvió false sin detalle adicional'));

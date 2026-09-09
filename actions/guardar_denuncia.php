@@ -129,16 +129,20 @@ $stmt->execute([
 ]);
 
 if (!$esAnonima && $email !== '') {
-    require_once __DIR__ . '/../includes/mail_denuncia.php';
-    $catStmt = $pdo->prepare('SELECT nombre FROM categorias WHERE id = ?');
-    $catStmt->execute([$categoriaId]);
-    $categoriaNombre = (string) $catStmt->fetchColumn();
+    try {
+        require_once __DIR__ . '/../includes/mail_denuncia.php';
+        $catStmt = $pdo->prepare('SELECT nombre FROM categorias WHERE id = ?');
+        $catStmt->execute([$categoriaId]);
+        $categoriaNombre = (string) $catStmt->fetchColumn();
 
-    enviarMailConfirmacionDenuncia([
-        'codigo_seguimiento' => $codigo,
-        'nombre' => $nombre,
-        'email' => $email,
-    ], $categoriaNombre);
+        enviarMailConfirmacionDenuncia([
+            'codigo_seguimiento' => $codigo,
+            'nombre' => $nombre,
+            'email' => $email,
+        ], $categoriaNombre);
+    } catch (\Throwable $e) {
+        error_log('[guardar_denuncia] Excepción al enviar mail de confirmación: ' . $e->getMessage());
+    }
 }
 
 $_SESSION['ultimo_codigo'] = $codigo;
