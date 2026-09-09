@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" width="220" height="48">
+  <rect x="0" y="6" width="36" height="36" rx="6" fill="#ffffff"/>
+  <path d="M18 12 L27 17 V27 C27 33 23 37 18 39 C13 37 9 33 9 27 V17 Z" fill="#232D4F"/>
+  <path d="M18 17 L18 33 M13 22 L23 22" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  <text x="46" y="22" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ffffff">Municipalidad</text>
+  <text x="46" y="39" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ffffff">de Santa Fe</text>
+</svg>

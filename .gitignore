@@ -1,0 +1,5 @@
+/config/config.php
+/uploads/denuncias/*
+!/uploads/denuncias/.gitkeep
+.DS_Store
+*.log
