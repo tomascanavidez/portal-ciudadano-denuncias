@@ -78,5 +78,30 @@ function enviarMailConfirmacionDenuncia(array $denuncia, string $categoriaNombre
     $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
     $headers .= 'From: ' . MAIL_FROM_NAME . ' <' . MAIL_FROM_ADDRESS . ">\r\n";
 
-    return @mail($denuncia['email'], '=?UTF-8?B?' . base64_encode($asunto) . '?=', $cuerpoHtml, $headers);
+    if (!function_exists('mail')) {
+        error_log('[mail_denuncia] La función mail() no está disponible en este hosting.');
+        return false;
+    }
+
+    $mensajeError = null;
+    set_error_handler(function (int $errno, string $errstr) use (&$mensajeError): bool {
+        $mensajeError = $errstr;
+        return true;
+    });
+
+    $enviado = mail(
+        $denuncia['email'],
+        '=?UTF-8?B?' . base64_encode($asunto) . '?=',
+        $cuerpoHtml,
+        $headers,
+        '-f' . MAIL_FROM_ADDRESS
+    );
+
+    restore_error_handler();
+
+    if (!$enviado) {
+        error_log('[mail_denuncia] Fallo al enviar a ' . $denuncia['email'] . ': ' . ($mensajeError ?? 'mail() devolvió false sin detalle adicional'));
+    }
+
+    return $enviado;
 }
